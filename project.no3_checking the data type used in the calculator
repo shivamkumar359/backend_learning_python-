@@ -1,0 +1,54 @@
+# Advanced data types used:
+# dict  -> operator-function mapping
+# set   -> valid operators
+# list  -> calculation history
+# tuple -> immutable record of each operation
+
+def add(a, b): return a + b
+def sub(a, b): return a - b
+def mul(a, b): return a * b
+def div(a, b): return "Error (division by zero)" if b == 0 else a / b
+def power(a, b): return a ** b
+
+# Dictionary: operator → function
+operations = {
+    '+': add,
+    '-': sub,
+    '*': mul,
+    '/': div,
+    '**': power
+}
+
+# Set: fast validation
+valid_operators = set(operations.keys())
+
+# List: stores history
+history = []
+
+result = float(input("Enter first number: "))
+
+while True:
+    op = input("Enter operator (+, -, *, /, ** or q to quit): ")
+
+    if op == 'q':
+        break
+
+    if op not in valid_operators:
+        print("Invalid operator")
+        continue
+
+    num = float(input("Enter next number: "))
+
+    old_result = result
+    result = operations[op](result, num)
+
+    # Tuple: immutable record
+    history.append((old_result, op, num, result))
+
+    print("Current result:", result)
+
+print("\nFinal result:", result)
+
+print("\nCalculation History:")
+for record in history:
+    print(record)
