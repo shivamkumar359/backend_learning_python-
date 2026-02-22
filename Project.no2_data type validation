@@ -1,0 +1,29 @@
+# Advanced data-type validation using dict, set, tuple, list
+
+def validate_input(value):
+    validators = {
+        "integer": lambda x: x.isdigit() or (x.startswith('-') and x[1:].isdigit()),
+        "float": lambda x: x.replace('.', '', 1).isdigit() and x.count('.') == 1,
+        "boolean": lambda x: x.lower() in {"true", "false"},
+        "string": lambda x: True,
+        "list": lambda x: x.startswith('[') and x.endswith(']'),
+        "tuple": lambda x: x.startswith('(') and x.endswith(')'),
+        "set": lambda x: x.startswith('{') and x.endswith('}'),
+        "dictionary": lambda x: x.startswith('{') and ':' in x and x.endswith('}')
+    }
+
+    valid_types = set(validators.keys())
+    detected_types = []
+
+    for dtype, rule in validators.items():
+        if rule(value):
+            detected_types.append(dtype)
+
+    return tuple(detected_types)  # immutable result
+
+
+user_input = input("Enter any value: ")
+
+result = validate_input(user_input)
+
+print("Detected data types:", result)
