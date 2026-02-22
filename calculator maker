@@ -1,0 +1,32 @@
+result = float(input("Enter first number: "))
+
+while True:
+    op = input("Enter operator (+, -, *, /) or 'q' to quit: ")
+
+    if op == 'q':
+        break
+
+    num = float(input("Enter next number: "))
+
+    if op == '+':
+        result = result + num
+
+    elif op == '-':
+        result = result - num
+
+    elif op == '*':
+        result = result * num
+
+    elif op == '/':
+        if num == 0:
+            print("Division by zero not allowed")
+            continue
+        result = result / num
+
+    else:
+        print("Invalid operator")
+        continue
+
+    print("Current result:", result)
+
+print("Final result:", result)
